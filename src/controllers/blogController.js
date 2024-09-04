@@ -21,10 +21,37 @@ const listPost = (req, res) => {
   }
 
   res.json(text)
-}
+};
+
+const updatePost = (req, res) => {
+  const { id } = req.query;
+  const { title, content, status, author } = req.body;
+  const text = TextService.getTextById(id);
+
+  if (!text) {
+    return res.status(404).json({ message: `Texto com ID ${id} não encontrado` });
+  }
+
+  const updatedText = TextService.updateText(id, { title, content, status, author });
+  res.status(200).json({ message: `Texto com ID ${id} atualizado com sucesso`, updatedText });
+};
+
+const deletePost = (req, res) => {
+  const { id } = req.query;
+  const text = TextService.getTextById(id);
+
+  if (!text) {
+    return res.status(404).json({ message: `Texto com ID ${id} não encontrado` });
+  }
+
+  TextService.deleteText(id);
+  res.status(200).json({ message: `Texto com ID ${id} deletado com sucesso` });
+};
 
 module.exports = {
   createPost,
   listPosts,
-  listPost
+  listPost,
+  updatePost,
+  deletePost
 }
