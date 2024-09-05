@@ -39,8 +39,7 @@ Retorna uma lista com todos os posts.
       "content": "Conteúdo do post",
       "status": "publicado",
       "author": "Autor"
-    },
-    ...
+    }
   ]
   ```
 
